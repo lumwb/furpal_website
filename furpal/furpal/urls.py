@@ -15,18 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from accounts import views as accounts_views
+
 from django.urls import path, include
-from users import views as user_views
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views as furpal_views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
-    path('', include('dogs.urls')),
+    path('register/', accounts_views.register_page, name='register'),
+    #path('profile/', user_views.profile, name='profile'),
+    path('login/', accounts_views.login_page, name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='accounts/logout.html'), name='logout'),
+    path('', furpal_views.home, name='furpal-home'),
+    path('about/', furpal_views.about, name='furpal-about')
 ]
 
 if settings.DEBUG:
