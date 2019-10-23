@@ -12,10 +12,14 @@ class UserAdminCreationForm(forms.ModelForm):
     password2 = forms.CharField(
         label='Password confirmation', widget=forms.PasswordInput)
 
+    # class Meta:
+    #     model = User
+    #     fields = ('email', 'active', 'admin', 'staff', 'dogowner',
+    #               'first_name', 'last_name', 'phone_number', 'birth_date',)
+
     class Meta:
         model = User
-        fields = ('email', 'active', 'admin', 'staff', 'dogowner',
-                  'first_name', 'last_name', 'phone_number', 'birth_date',)
+        fields = ('email', )
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -45,6 +49,7 @@ class UserAdminChangeForm(forms.ModelForm):
         model = User
         fields = ('email', 'password', 'active', 'admin', 'staff', 'dogowner',
                   'first_name', 'last_name', 'phone_number', 'birth_date',)
+        fields = ('email', )            
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -62,13 +67,14 @@ class RegisterForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(
-        label='Password confirmation', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput)
 
     class Meta:
         model = User
-        fields = ('email', 'first_name', 'last_name',
-                  'phone_number', 'birth_date',)  # 'full_name',)
+        # fields = ('email', 'first_name', 'last_name',
+        #           'phone_number', 'birth_date',)  # 'full_name',)
+
+        fields = ('email',)  # 'full_name',)
 
     def clean_password2(self):
         # Check that the two password entries match
